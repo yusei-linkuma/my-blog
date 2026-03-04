@@ -5,6 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Linterds Blog</title>
     <link rel="stylesheet" href="abc.css">
+    <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+  // ここにFirebaseの設定（画像にあるやつ）を貼り付けます
+  const firebaseConfig = {
+    apiKey: "AIzaSyDTo9QSKDWg_CJ0Cp-TPeLSSdUw8QsilXE",
+    authDomain: "linterds-blog.firebaseapp.com",
+    projectId: "linterds-blog",
+    storageBucket: "linterds-blog.firebasestorage.app",
+    messagingSenderId: "426467117578",
+    appId: "1:426467117578:web:da5f95f4617b82b8662df3",
+    measurementId: "G-4NWPV8E3XR"
+  };
+
+  // Firebaseの初期化
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // JavaScriptから使えるようにグローバル変数にする
+  window.db = db;
+  window.collection = collection;
+  window.addDoc = addDoc;
+  window.query = query;
+  window.orderBy = orderBy;
+  window.onSnapshot = onSnapshot;
+  window.serverTimestamp = serverTimestamp;
+</script>
 </head>
 <body>
 

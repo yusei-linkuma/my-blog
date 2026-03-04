@@ -1,46 +1,47 @@
-// 最初にいくつか記事を入れておく
+// ページを開いた時に、データベースから記事を自動で取ってくる
 window.onload = function() {
-    console.log("Linterds Blog 起動");
+    const q = query(collection(window.db, "posts"), orderBy("createdAt", "desc"));
+    
+    // データベースが更新されるたびに、画面を自動で書き換える
+    onSnapshot(q, (snapshot) => {
+        const postList = document.getElementById('post-list');
+        postList.innerHTML = ""; // 一旦クリア
+        
+        snapshot.forEach((doc) => {
+            const data = doc.data();
+            const dateStr = data.createdAt ? data.createdAt.toDate().toLocaleDateString() : "投稿中...";
+            
+            const postElement = document.createElement('div');
+            postElement.className = 'featured-post';
+            postElement.innerHTML = `
+                <span class="featured-label">Post</span>
+                <h2>${data.title}</h2>
+                <p style="color: gray; font-size: 0.8em;">${dateStr}</p>
+                <p>${data.content}</p>
+            `;
+            postList.appendChild(postElement);
+        });
+    });
 };
 
-function addPost() {
-    // 入力された値を取得
+// 投稿ボタンを押した時の動き（Firebaseに保存する）
+async function addPost() {
     const title = document.getElementById('postTitle').value;
     const content = document.getElementById('postContent').value;
 
-    if (title === "" || content === "") {
-        alert("タイトルと内容を入力してください！");
-        return;
+    if (!title || !content) return alert("入力してね！");
+
+    try {
+        await addDoc(collection(window.db, "posts"), {
+            title: title,
+            content: content,
+            createdAt: serverTimestamp()
+        });
+        
+        // 入力欄を空にする
+        document.getElementById('postTitle').value = "";
+        document.getElementById('postContent').value = "";
+    } catch (e) {
+        console.error("エラー！: ", e);
     }
-
-    // 記事を表示するエリアを取得
-    const postList = document.getElementById('post-list');
-
-    // 新しい記事の箱（div）を作る
-    const newPost = document.createElement('div');
-    newPost.className = 'featured-post'; // CSSのスタイルを適用
-
-    // 中身を組み立てる
-    const now = new Date();
-    const dateStr = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate();
-
-    newPost.innerHTML = `
-        <span class="featured-label">New Post</span>
-        <h2>${title}</h2>
-        <p style="color: gray; font-size: 0.8em;">${dateStr}</p>
-        <p>${content}</p>
-    `;
-
-    // リストの一番上に追加する
-    postList.prepend(newPost);
-
-    // 入力欄を空にする
-    document.getElementById('postTitle').value = "";
-    document.getElementById('postContent').value = "";
-}
-
-// 検索機能（前回の残り）
-function searchArticle() {
-    const query = document.getElementById('searchInput').value;
-    alert(query + " を検索する機能は、次のアップデートで実装予定です！");
 }
