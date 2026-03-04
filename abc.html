@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linterds Blog</title>
+    <link rel="stylesheet" href="abc.css">
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">Linterds Blog</a>
+    </header>
+
+    <div class="container">
+        <main>
+            <div class="featured-post">
+                <span class="featured-label">新規投稿</span>
+                <input type="text" id="postTitle" class="search-input" placeholder="記事のタイトル">
+                <textarea id="postContent" class="search-input" style="height: 100px; margin-top: 10px;" placeholder="今日学んだこと（数学の展開など）を書こう！"></textarea>
+                <button onclick="addPost()" style="margin-top: 10px; background: #3498db; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">投稿する</button>
+            </div>
+
+            <div id="post-list">
+                </div>
+        </main>
+        <aside>
+            <div class="sidebar-widget">
+                <div class="widget-title">検索</div>
+                <input type="text" id="searchInput" class="search-input" placeholder="記事をさがす...">
+                <button onclick="searchArticle()" style="margin-top:10px;">検索</button>
+            </div>
+            <div class="sidebar-widget">
+                <div class="widget-title">項目</div>
+                <ul class="menu-list">
+                    <li><a href="#">プログラミング日記</a></li>
+                    <li><a href="#">数学のノート</a></li>
+                    <li><a href="#">Linterds OS 開発記</a></li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+
+    <script src="abc.js"></script>
+</body>
+</html>
