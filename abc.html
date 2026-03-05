@@ -3,72 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Linterds Blog</title>
+    <title>Linterds OS - Central Blog</title>
     <link rel="stylesheet" href="abc.css">
+    
     <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-  // ここにFirebaseの設定（画像にあるやつ）を貼り付けます
-  const firebaseConfig = {
-    apiKey: "AIzaSyDTo9QSKDWg_CJ0Cp-TPeLSSdUw8QsilXE",
-    authDomain: "linterds-blog.firebaseapp.com",
-    projectId: "linterds-blog",
-    storageBucket: "linterds-blog.firebasestorage.app",
-    messagingSenderId: "426467117578",
-    appId: "1:426467117578:web:da5f95f4617b82b8662df3",
-    measurementId: "G-4NWPV8E3XR"
-  };
+        // YuseiさんのConfigをここに貼ってください
+        const firebaseConfig = {
+            apiKey: "AIzaSyDTo9QSKDWg_CJ0Cp-TPeLSSdUw8QsilXE", //
+            authDomain: "linterds-blog.firebaseapp.com", //
+            projectId: "linterds-blog", //
+            storageBucket: "linterds-blog.firebasestorage.app", //
+            messagingSenderId: "426467117578", //
+            appId: "1:426467117578:web:da5f95f4617b82b8662df3", //
+            measurementId: "G-4NWPV8E3XR" //
+        };
 
-  // Firebaseの初期化
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-  // JavaScriptから使えるようにグローバル変数にする
-  window.db = db;
-  window.collection = collection;
-  window.addDoc = addDoc;
-  window.query = query;
-  window.orderBy = orderBy;
-  window.onSnapshot = onSnapshot;
-  window.serverTimestamp = serverTimestamp;
-</script>
+        window.db = db;
+        window.collection = collection;
+        window.addDoc = addDoc;
+        window.query = query;
+        window.orderBy = orderBy;
+        window.onSnapshot = onSnapshot;
+        window.serverTimestamp = serverTimestamp;
+    </script>
+    <script src="abc.js" defer></script>
 </head>
 <body>
 
-    <header>
-        <a href="#" class="logo">Linterds Blog</a>
+    <header class="os-header">
+        <div class="logo-container">
+            <img src="Linterds OS LOGO.png" alt="Linterds OS Logo" class="os-logo">
+            <h1 class="os-title">Linterds OS <span class="version">v2.0.0</span></h1>
+        </div>
+        <div class="status-bar">Connecting to Nexus Grid...</div>
     </header>
 
-    <div class="container">
-        <main>
-            <div class="featured-post">
-                <span class="featured-label">新規投稿</span>
-                <input type="text" id="postTitle" class="search-input" placeholder="記事のタイトル">
-                <textarea id="postContent" class="search-input" style="height: 100px; margin-top: 10px;" placeholder="今日学んだこと（数学の展開など）を書こう！"></textarea>
-                <button onclick="addPost()" style="margin-top: 10px; background: #3498db; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">投稿する</button>
-            </div>
+    <main class="os-main-container">
+        <section class="publish-panel">
+            <h2>> Terminal_Input: New_Log</h2>
+            <input type="text" id="postTitle" placeholder="ログタイトルを入力...">
+            <textarea id="postContent" placeholder="システムログの内容を記述..." rows="4"></textarea>
+            <button onclick="addPost()">Execute::Publish</button>
+        </section>
 
+        <section class="log-viewer">
+            <h2>> System_Archive: Public_Logs</h2>
             <div id="post-list">
                 </div>
-        </main>
-        <aside>
-            <div class="sidebar-widget">
-                <div class="widget-title">検索</div>
-                <input type="text" id="searchInput" class="search-input" placeholder="記事をさがす...">
-                <button onclick="searchArticle()" style="margin-top:10px;">検索</button>
-            </div>
-            <div class="sidebar-widget">
-                <div class="widget-title">項目</div>
-                <ul class="menu-list">
-                    <li><a href="#">プログラミング日記</a></li>
-                    <li><a href="#">数学のノート</a></li>
-                    <li><a href="#">Linterds OS 開発記</a></li>
-                </ul>
-            </div>
-        </aside>
-    </div>
+        </section>
+    </main>
 
-    <script src="abc.js"></script>
 </body>
 </html>
