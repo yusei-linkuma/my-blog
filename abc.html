@@ -10,15 +10,14 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // YuseiさんのConfigをここに貼ってください
         const firebaseConfig = {
-            apiKey: "AIzaSyDTo9QSKDWg_CJ0Cp-TPeLSSdUw8QsilXE", //
-            authDomain: "linterds-blog.firebaseapp.com", //
-            projectId: "linterds-blog", //
-            storageBucket: "linterds-blog.firebasestorage.app", //
-            messagingSenderId: "426467117578", //
-            appId: "1:426467117578:web:da5f95f4617b82b8662df3", //
-            measurementId: "G-4NWPV8E3XR" //
+            apiKey: "AIzaSyDTo9QSKDWg_CJ0Cp-TPeLSSdUw8QsilXE",
+            authDomain: "linterds-blog.firebaseapp.com",
+            projectId: "linterds-blog",
+            storageBucket: "linterds-blog.firebasestorage.app",
+            messagingSenderId: "426467117578",
+            appId: "1:426467117578:web:da5f95f4617b82b8662df3",
+            measurementId: "G-4NWPV8E3XR"
         };
 
         const app = initializeApp(firebaseConfig);
@@ -41,21 +40,39 @@
             <img src="Linterds OS LOGO.png" alt="Linterds OS Logo" class="os-logo">
             <h1 class="os-title">Linterds OS <span class="version">v2.0.0</span></h1>
         </div>
-        <div class="status-bar">Connecting to Nexus Grid...</div>
+        <div class="status-bar">SYSTEM_ONLINE [NODE_01]</div>
     </header>
+
+    <nav class="os-nav">
+        <div class="category-links">
+            <button onclick="filterCategory('all')">ALL</button>
+            <button onclick="filterCategory('math')">MATH</button>
+            <button onclick="filterCategory('dev')">DEV</button>
+            <button onclick="filterCategory('memo')">MEMO</button>
+        </div>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search archives..." oninput="searchLogs()">
+        </div>
+    </nav>
 
     <main class="os-main-container">
         <section class="publish-panel">
-            <h2>> Terminal_Input: New_Log</h2>
-            <input type="text" id="postTitle" placeholder="ログタイトルを入力...">
-            <textarea id="postContent" placeholder="システムログの内容を記述..." rows="4"></textarea>
-            <button onclick="addPost()">Execute::Publish</button>
+            <h2>> Terminal_Input</h2>
+            <div class="input-row">
+                <input type="text" id="postTitle" placeholder="タイトルを入力...">
+                <select id="postCategory">
+                    <option value="memo">MEMO</option>
+                    <option value="math">MATH</option>
+                    <option value="dev">DEV</option>
+                </select>
+            </div>
+            <textarea id="postContent" placeholder="ログの内容を記述..." rows="4"></textarea>
+            <button onclick="addPost()">EXECUTE_PUBLISH</button>
         </section>
 
         <section class="log-viewer">
-            <h2>> System_Archive: Public_Logs</h2>
-            <div id="post-list">
-                </div>
+            <h2>> System_Archive</h2>
+            <div id="post-list"></div>
         </section>
     </main>
 
